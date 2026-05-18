@@ -2,10 +2,7 @@ fastapi
 uvicorn[standard]
 python-dotenv
 pydantic
-
 langchain
 langchain-core
-langchain-google-genai
-
+langchain-groq
 ddgs
-duckduckgo-search
