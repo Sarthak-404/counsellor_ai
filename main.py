@@ -1,3 +1,4 @@
+# uvicorn main:app --reload
 import os
 import re
 import uuid
@@ -36,11 +37,11 @@ if not GROQ_API_KEY:
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
 
-MAX_RESPONSE_WORDS = 180
+MAX_RESPONSE_WORDS = 320
 
 RESPONSE_LENGTH_RULE = (
     f"STRICT OUTPUT LENGTH RULE: Your final answer must be {MAX_RESPONSE_WORDS} words or fewer. "
-    "Never exceed 180 words. Do not add long introductions. Prefer concise bullets."
+    "Never exceed 320 words. Do not add long introductions. Prefer concise bullets."
 )
 
 
@@ -70,6 +71,7 @@ Critical rules:
 - Prefer official sources: JoSAA, CSAB, NTA, IIT/NIT/IIIT/GFTI official sites, state counselling sites, college official pages, NIRF, and official placement/fee PDFs.
 - Cutoffs change every year. Always say recommendations are based on previous trends and should be verified during current counselling.
 - If data is insufficient, say so clearly and ask exactly one useful follow-up question.
+- Always prefer the location stated by user if given and stick to it's query.
 
 When recommending colleges:
 - Respect every user constraint: rank/percentile, category, home state, gender, branch, fees/budget/affordability, preferred city/state, exam, and package/placement expectations.
@@ -80,7 +82,7 @@ When recommending colleges:
 - For weak rank/percentile, suggest realistic state/private counselling and branch flexibility.
 
 Answer style:
-- Final answer must be 180 words or fewer.
+- Final answer must be 320 words or fewer.
 - Be crisp, practical, and empathetic.
 - Use 3-6 bullets when useful.
 - Prefer college names plus reason, not generic advice.
@@ -758,7 +760,7 @@ def build_enriched_question(question: str) -> str:
         f"Parsed constraints from this message:\n{profile_to_text(preferences)}\n\n"
         "Instruction: Use all parsed constraints. "
         "If recommending colleges, search first and bucket options as Ambitious, Moderate, Safe, and Backup when possible. "
-        "The final answer sent to the user must be 180 words or fewer. "
+        "The final answer sent to the user must be 320 words or fewer. "
         "If a constraint may be missing, ask only one follow-up question."
     )
 
